@@ -4,15 +4,17 @@ var constants = require('../src/Constants');
 
 module.exports = (function() {
 
-    var MAX_COORD = 50;
     var scentGrids = []; //keeps track of scents
     var x_dimension = 0;
     var y_dimension = 0;
 
+    function wasInitialized() {
+        return x_dimension != 0 && y_dimension != 0;
+    };
 
     function create(gridSize) {
-        x_dimension = (gridSize.x <= MAX_COORD) ? gridSize.x : MAX_COORD;
-        y_dimension = (gridSize.y <= MAX_COORD) ? gridSize.y : MAX_COORD;
+        x_dimension = (gridSize.x <= constants.MAX_COORD) ? gridSize.x : constants.MAX_COORD;
+        y_dimension = (gridSize.y <= constants.MAX_COORD) ? gridSize.y : constants.MAX_COORD;
         for(var i = 0; i < x_dimension; i++) {
             scentGrids[i] = new Array(y_dimension);
             for(var j = 0; j < y_dimension; j++) {
@@ -22,9 +24,9 @@ module.exports = (function() {
     };
 
     function attempMove(robotCurrentPos, robotNewPos) {
-        if (scentGrids[robotCurrentPos.x][robotCurrentPos.y] === true) {
+        if (scentGrids[robotCurrentPos.x][robotCurrentPos.y] === true && itGoesOutOfBoundaries()) {
             return constants.MOVE_OUTCOMES.STAND;    
-        } else if(isOutOfBoundaries()) {
+        } else if(itGoesOutOfBoundaries()) {
             setScent();
             return constants.MOVE_OUTCOMES.FALL;
         } else {
@@ -35,13 +37,14 @@ module.exports = (function() {
             scentGrids[robotCurrentPos.x][robotCurrentPos.y] = true;
         };
 
-        function isOutOfBoundaries() {
+        function itGoesOutOfBoundaries() {
             return (robotNewPos.x < 0) || (robotNewPos.y < 0) || 
                    (robotNewPos.x >= x_dimension) || (robotNewPos.y >= y_dimension);
         };
     };
 
     return { create: create,
-             attempMove: attempMove };
+             attempMove: attempMove,
+             wasInitialized: wasInitialized };
 
 })()

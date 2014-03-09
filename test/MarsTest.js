@@ -9,6 +9,11 @@ describe('Testing logic for planet Mars',function(){
 
     mars.create({ x: ROWS, y: COLS });
 
+    it('should has been initialized', function(done){
+        assert.equal(mars.wasInitialized(), true);
+        done();
+    });
+
     it('should allow movement for the robot when there is no scent or edge', function(done){
         var result = mars.attempMove({ x: 3, y: 4, orientation: "W" }, { x: 2, y: 4 });
         assert.equal(result, constants.MOVE_OUTCOMES.MOVE);
