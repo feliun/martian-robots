@@ -8,15 +8,15 @@ describe('Testing logic for a robot',function(){
     var newPosition = {};
     
     //This functions mock the information provided by the planet
-    var attemptValidMove = function(posInfo) {
+    var attemptValidMove = function(currentPos, newPos) {
         return constants.MOVE_OUTCOMES.MOVE;
     };
 
-    var attemptMoveToScent = function(posInfo) {
+    var attemptMoveToScent = function(currentPos, newPos) {
         return constants.MOVE_OUTCOMES.STAND;
     };
 
-    var attemptMoveAndFall = function(posInfo) {
+    var attemptMoveAndFall = function(currentPos, newPos) {
         return constants.MOVE_OUTCOMES.FALL;
     };
 

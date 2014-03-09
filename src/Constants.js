@@ -1,4 +1,5 @@
 module.exports = (function() {
+    
     var MOVE_OUTCOMES = {
         MOVE: 0,
         STAND: 1,

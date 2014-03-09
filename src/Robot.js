@@ -10,11 +10,11 @@ function Robot(posInfo) {
 
     var that = this;
 
-    var modifyPosition = {
-        "N" : function() { that.posInfo.y++; },
-        "E" : function() { that.posInfo.x++; },
-        "S" : function() { that.posInfo.y--; },
-        "W" : function() { that.posInfo.x--; }
+    var calculateNewPos = {
+        "N" : function() { return { x: that.posInfo.x, y: that.posInfo.y + 1 }; },
+        "E" : function() { return { x: that.posInfo.x + 1, y: that.posInfo.y }; },
+        "S" : function() { return { x: that.posInfo.x, y: that.posInfo.y - 1 }; },
+        "W" : function() { return { x: that.posInfo.x - 1, y: that.posInfo.y }; }
     }
 
     function rotate(changeOrientationFn) {
@@ -43,12 +43,15 @@ function Robot(posInfo) {
     }
 
     this.moveFwd = function(attempMove) {
-        switch(attempMove(this.posInfo)) {
+        var potentialNewPos = calculateNewPos[this.posInfo.orientation]();
+        switch(attempMove(this.posInfo, potentialNewPos)) {
             case constants.MOVE_OUTCOMES.MOVE: 
-                modifyPosition[this.posInfo.orientation]();
+                this.posInfo.x = potentialNewPos.x;
+                this.posInfo.y = potentialNewPos.y;
                 break;
             case constants.MOVE_OUTCOMES.FALL: 
-                modifyPosition[this.posInfo.orientation]();
+                this.posInfo.x = potentialNewPos.x;
+                this.posInfo.y = potentialNewPos.y;
                 this.dead = true;
                 break;
         }

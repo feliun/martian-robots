@@ -10,7 +10,7 @@ console.log(robot);
 var robot2 = new Robot('hello 2');
 console.log(robot2);
 
-var planet = Mars.create('mars');
+var planet = Mars.create({x: 4, y: 1});
 
 console.log('success');
    
