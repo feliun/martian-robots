@@ -1,0 +1,11 @@
+{
+  "name": "martian-robots",
+  "version": "0.0.1",
+  "dependencies": {
+    "underscore": "*",
+    "mocha": "*"
+  },
+  "engines": {
+    "npm": "1.1.x"
+  }
+}
